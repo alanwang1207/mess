@@ -1,0 +1,39 @@
+<?php
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="reply",options={"engine"="InnoDB","charset"="utf8"})
+ */
+class Reply
+{
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer",nullable=false)
+     * @ORM\GeneratedValue
+     */
+    protected $id;
+    /**
+     * @ORM\ManyToOne(targetEntity="Message", inversedBy="replys", cascade={"persist"})
+     * @ORM\JoinColumn(name="message_id", referencedColumnName="id", nullable=false)
+     */
+    protected $message;
+    /**
+     * @ORM\Column(type="string",length=20)
+     */
+    protected $name;
+    /**
+     * @ORM\Column(type="string",length=1000,nullable=false)
+     */
+    protected $text;
+    /**
+     * @ORM\Column(type="datetime",nullable=true)
+     */
+    protected $date;
+
+    /**
+     * @param mixed $message
+     */
+}

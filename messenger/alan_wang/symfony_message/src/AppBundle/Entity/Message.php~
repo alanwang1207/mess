@@ -1,0 +1,36 @@
+<?php
+// src/Message.php
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="MessageRepository")
+ * @ORM\Table(name="message",options={"engine"="InnoDB","charset"="utf8"})
+ */
+class Message
+{
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer",nullable=false)
+     * @ORM\GeneratedValue
+     */
+    protected $id;
+    /**
+     * @ORM\Column(type="string",length=20,nullable=false)
+     */
+    protected $name;
+    /**
+     * @ORM\Column(type="string",length=1000,nullable=false)
+     */
+    protected $text;
+    /**
+     * @ORM\Column(type="datetime",nullable=true)
+     */
+    protected $date;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Reply" , mappedBy="message",cascade={"persist", "remove"})
+     */
+    protected $replys;
+}

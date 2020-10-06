@@ -1,0 +1,22 @@
+{% extends 'bulk_form.html.twig' %}
+
+{% block title %}批次刪除留言{% endblock %}
+{% block h1 %}批次刪除留言{% endblock %}
+
+
+{% block body %}
+{{ form_start(form) }}
+
+<table>
+  <tbody>
+    <tr>
+      <th>數量:</th>
+      <td>{{ form_widget(form.count) }}</td>
+    </tr>
+      <th></th>
+      <td>{{ form_widget(form.save) }}</td>
+    </tr>
+  </tbody>
+</table>
+{{ form_end(form) }}
+{% endblock %}

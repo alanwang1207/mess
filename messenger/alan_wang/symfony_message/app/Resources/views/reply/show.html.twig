@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RD5 - 線上留言</title>
+</head>
+
+<style>
+th, td {
+  padding: 10px;
+}
+th {
+  text-align: left;
+}
+</style>
+<h1>線上留言-回覆區</h1>
+<a href="/" class="btn btn-success">回首頁</a>
+<table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>發文人</th>
+                    <th>內容</th>
+                    <th>留言時間</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ message.name }}</td>
+                    <td>{{ message.text }}</td>
+                    <td>{{ message.date|date('Y-m-d H:i:s') }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+<h1>全部回覆</h1>
+
+{% if replys is not empty %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>暱稱</th>
+      <th>留言</th>
+      <th>時間</th>
+      <th>功能區</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for reply in replys %}
+  <tr>
+    <td>{{ reply.name }}</td>
+    <td>{{ reply.text }}</td>
+    <td>{{ reply.date|date('Y-m-d H:i:s') }}</td>
+    <td>
+      <form action="/delete/reply" method="post">
+          <input type="submit" class="btn btn-outline-danger mr-2" name="btnDelReply" id="btnDel" value="刪除">
+          <input type="hidden" name="mid" id="mid" value="{{ message.id }}">
+          <input type="hidden" name="id" id="id" value="{{ reply.id }}">
+      </form>
+      <form action="/update/reply" method="post">
+          <input type="submit" class="btn btn-outline-info mr-2" name="btnUpdateReply" id="btnUpdate" value="更新">
+          <input type="hidden" name="mid" id="mid" value="{{ message.id }}">
+          <input type="hidden" name="id" id="id" value="{{ reply.id }}">
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p>找不到回覆.</p>
+{% endif %}
+<br/>
+<form action="/create/reply" method="post">
+  <input type="submit" class="btn btn-outline btn-success mr-2" name="btnCreateReply" id="btnCreateReply" value="新增回覆">
+  <input type="hidden" name="mid" id="mid" value="{{ message.id }}">
+</form>

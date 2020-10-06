@@ -1,0 +1,26 @@
+{% extends 'form.html.twig' %}
+
+{% block title %}更新留言{% endblock %}
+{% block h1 %}更新留言{% endblock %}
+{% block body %}
+{{ form_start(form) }}
+
+<table>
+  <tbody>
+    <tr>
+      <th>暱稱:</th>
+      <td>{{ form_widget(form.name) }}</td>
+    </tr>
+    <tr>
+      <th>內容:</th>
+      <td>{{ form_widget(form.text) }}</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>{{ form_widget(form.save) }}</td>
+    </tr>
+  </tbody>
+</table>
+<input type="hidden" name="id" id="id" value="{{ message.id }}">
+{{ form_end(form) }}
+{% endblock %}
